@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 // Replace with your real bot token
-const TELEGRAM_BOT_TOKEN = "8143300137:AAEdaGklGSzlTp8mpZl_IE2Q523d3390iak";
+const TELEGRAM_BOT_TOKEN = "";
 
 const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
 
