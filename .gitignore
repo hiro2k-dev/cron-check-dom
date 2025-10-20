@@ -26,3 +26,4 @@ last_status.txt
 # Output folders (if used)
 dist/
 build/
+last_offers.json
