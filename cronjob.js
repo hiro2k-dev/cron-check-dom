@@ -121,6 +121,12 @@ async function sendToUsers(text) {
 
 async function checkHousing() {
   try {
+    const activeCount = await User.countDocuments({ active: true });
+    if (activeCount === 0) {
+      console.log("No active users. Skipping scrape and file updates.");
+      return;
+    }
+
     const offers = await scrapeOffers();
     const hasOffers = offers.length > 0;
 
