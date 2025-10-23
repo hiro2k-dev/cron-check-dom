@@ -7,10 +7,12 @@
     "axios": "^1.11.0",
     "cheerio": "^1.1.2",
     "dotenv": "^17.2.1",
-    "node-cron": "^4.2.1"
+    "node-cron": "^4.2.1",
+    "mongoose": "^8.17.1"
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "npx nodemon index.js"
+    "devcron": "npx nodemon cronjob.js",
+    "devbot": "npx nodemon bot.js"
   }
 }
