@@ -26,6 +26,7 @@ async function pollTelegram() {
       if (!msg) continue;
       const chat = msg.chat;
       const text = (msg.text || "").trim();
+      console.log(`Processing message from chat ${chat.id}:`, text);
 
       if (text === "/start" || text.startsWith("/start ")) {
         const chatId = String(chat.id);
