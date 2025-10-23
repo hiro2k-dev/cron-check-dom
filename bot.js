@@ -82,6 +82,15 @@ async function handleStopCommand(chat) {
     );
   }
 }
+async function ensureNoWebhook() {
+  try {
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/deleteWebhook`;
+    const { data } = await axios.get(url, { params: { drop_pending_updates: true } });
+    console.log("🧹 deleteWebhook:", data?.ok ? "OK" : JSON.stringify(data));
+  } catch (err) {
+    console.error("⚠️ deleteWebhook failed:", err.message);
+  }
+}
 
 async function pollTelegram() {
   const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
@@ -124,6 +133,7 @@ async function pollTelegram() {
   try {
     await connectDB();
     console.log("✅ Database connected successfully");
+    await ensureNoWebhook();
     console.log("🚀 Bot polling started...");
     setInterval(pollTelegram, 3000);
   } catch (err) {
