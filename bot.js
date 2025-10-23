@@ -19,6 +19,7 @@ async function pollTelegram() {
       params: { timeout: 25, offset: pollOffset + 1 },
     });
     const updates = data?.result || [];
+    console.log(`Received ${updates.length} updates from Telegram`);
     for (const up of updates) {
       pollOffset = Math.max(pollOffset, up.update_id || 0);
       const msg = up.message || up.edited_message || up.channel_post;
