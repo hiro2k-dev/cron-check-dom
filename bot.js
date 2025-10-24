@@ -48,7 +48,7 @@ async function handleStartCommand(chat) {
       chatId,
       "👋 Hello! This is *Hiro*, a helper bot developed by Hiro to notify you about new dormitory listings at TU Dortmund.\n\n" +
         "Please note that this bot *DOES NOT* register or apply on your behalf. It only reminds you when new housing offers appear on the Studierendenwerk Dortmund website.\n\n" +
-        "You must still submit your dorm application manually. This reminder system exists to make it easier for everyone to stay informed — and to ensure fairness in the housing process.",
+        "You must still submit your dorm application manually. This reminder system exists to make it easier for everyone to stay informed, and to ensure fairness in the housing process.",
       "Markdown"
     );
 
@@ -138,6 +138,6 @@ async function pollTelegram() {
     setInterval(pollTelegram, 3000);
   } catch (err) {
     console.error("❌ Fatal error initializing bot:", err.message);
-    process.exit(1);
+    process.exit(1);    
   }
 })();
