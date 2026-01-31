@@ -5,6 +5,8 @@ const connectDB = require("./db");
 const User = require("./models/User");
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_API_BASE = process.env.TELEGRAM_API_BASE || "https://api.telegram.org";
+
 if (!TELEGRAM_BOT_TOKEN || !process.env.MONGO_URI) {
   console.error("❌ Missing TELEGRAM_BOT_TOKEN or MONGO_URI");
   process.exit(1);
@@ -17,7 +19,7 @@ async function sendMessage(chatId, text, parseMode = null) {
     const payload = { chat_id: chatId, text };
     if (parseMode) payload.parse_mode = parseMode;
     await axios.post(
-      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+      `${TELEGRAM_API_BASE}/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
       payload
     );
     console.log(`✅ Message sent to chat ${chatId}`);
@@ -84,7 +86,7 @@ async function handleStopCommand(chat) {
 }
 async function ensureNoWebhook() {
   try {
-    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/deleteWebhook`;
+    const url = `${TELEGRAM_API_BASE}/bot${TELEGRAM_BOT_TOKEN}/deleteWebhook`;
     const { data } = await axios.get(url, { params: { drop_pending_updates: true } });
     console.log("🧹 deleteWebhook:", data?.ok ? "OK" : JSON.stringify(data));
   } catch (err) {
@@ -93,7 +95,7 @@ async function ensureNoWebhook() {
 }
 
 async function pollTelegram() {
-  const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
+  const url = `${TELEGRAM_API_BASE}/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
   try {
     const { data } = await axios.get(url, {
       params: { timeout: 25, offset: pollOffset + 1 },
