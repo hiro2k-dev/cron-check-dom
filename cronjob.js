@@ -139,12 +139,14 @@ async function checkHousing() {
     let seen = loadSeen();
     if (seen === null) {
       saveSeen(offers.map((o) => o.id));
+      console.log("Initialized seen offers");
       return;
     }
 
     const newOffers = offers.filter((o) => !seen.has(o.id));
     if (!newOffers.length) {
       saveSeen(offers.map((o) => o.id));
+      console.log("No new offers found");
       return;
     }
 
