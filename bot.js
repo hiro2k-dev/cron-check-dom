@@ -129,15 +129,22 @@ async function pollTelegram() {
   }
 }
 
+async function startPolling() {
+  await pollTelegram();
+  setTimeout(startPolling, 1000); 
+}
+
 (async () => {
   try {
     await connectDB();
     console.log("✅ Database connected successfully");
     await ensureNoWebhook();
     console.log("🚀 Bot polling started...");
-    setInterval(pollTelegram, 3000);
+    
+    startPolling(); 
+    
   } catch (err) {
     console.error("❌ Fatal error initializing bot:", err.message);
-    process.exit(1);    
+    process.exit(1);
   }
 })();
