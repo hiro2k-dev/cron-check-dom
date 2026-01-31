@@ -121,6 +121,7 @@ async function sendToUsers(text) {
 
 async function checkHousing() {
   try {
+    console.log("Checking for new housing offers...");
     const activeCount = await User.countDocuments({ active: true });
     if (activeCount === 0) {
       console.log("No active users. Skipping scrape and file updates.");
@@ -150,6 +151,7 @@ async function checkHousing() {
     const text = mkTextMarkdown(newOffers);
     await sendToUsers(text);
     saveSeen(offers.map((o) => o.id));
+    console.log("end checkHousing");
   } catch (err) {
     console.error("checkHousing error:", err.message || err);
   }
